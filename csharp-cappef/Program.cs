@@ -15,6 +15,15 @@ namespace csharp_cappef
                 yield return result;
             }
         }
+
+        public static System.Collections.Generic.IEnumerable<long> Genera(long n)
+        {
+            long result = 0;
+            while (n-- > 0)
+            {
+                yield return result++;
+            }
+        }
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
@@ -24,10 +33,30 @@ namespace csharp_cappef
                 Console.WriteLine(n);
             }
 
+            //Contare tutti i numeri che contengono la cifra 2 compresi tra 1 e 1000000
+
+            //Soluzione 1
+            long count = 1;
+            for (long i = 0; i < 1000000; ++i)
+            {
+                if (i.ToString().Contains('2'))
+                    count++;
+            }
+            Console.WriteLine("I numeri compresi tra 1 e 1000000 che contengono la cifra 2 sono {0}", count);
+
+            //Soluzione 2
+            long count1 = 1;
+            foreach (int n in Genera(1000000))
+            {
+                if (n.ToString().Contains('2'))
+                    count1++;
+            }
+            Console.WriteLine("[Metodo IEnumerable] I numeri compresi tra 1 e 1000000 che contengono la cifra 2 sono {0}", count);
+
+            //Usando esclusivamente Genera(), stampare la somma dei numeri pari da 1 a 10000000
+            Console.WriteLine(Genera(10000000).Where(n => n % 2 == 0).Sum());
 
             return;
-
-
 
             using (SchoolContext db = new SchoolContext())
             {
